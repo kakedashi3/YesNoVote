@@ -7,8 +7,8 @@ const Home: NextPage = () => {
   const contractAddress = "0x26275251a2380bCfa4F32059FbF83f31824FED4e"
 
   const { contract } = useContract(contractAddress)
-  const { data: proposal, isLoading: proposalLoading } = useContractRead(contract, "proposals", [2]);
-  const { data: voted, isLoading: voterLoading } = useContractRead(contract, "voters", [2, address]);
+  const { data: proposal, isLoading: proposalLoading } = useContractRead(contract, "proposals", [3]);
+  const { data: voted, isLoading: voterLoading } = useContractRead(contract, "voters", [3, address]);
 
   return (
     <div className={styles.container}>
@@ -29,13 +29,13 @@ const Home: NextPage = () => {
                     <div>
                       <Web3Button
                         contractAddress={contractAddress}
-                        action={(contract) => contract.call("vote", [2, true])}
+                        action={(contract) => contract.call("vote", [3, true])}
                         isDisabled={voted && voted.voted}
                       >Yes</Web3Button>
                       
                       <Web3Button
                         contractAddress={contractAddress}
-                        action={(contract) => contract.call("vote", [2, false])}
+                        action={(contract) => contract.call("vote", [3, false])}
                         isDisabled={voted && voted.voted}
                       >No</Web3Button>
                     </div>
