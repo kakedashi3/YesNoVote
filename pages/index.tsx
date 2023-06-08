@@ -7,8 +7,8 @@ const Home: NextPage = () => {
   const contractAddress = "0x26275251a2380bCfa4F32059FbF83f31824FED4e"
 
   const { contract } = useContract(contractAddress)
-  const { data: proposal, isLoading: proposalLoading } = useContractRead(contract, "proposals", [1]);
-  const { data: voter, isLoading: voterLoading } = useContractRead(contract, "voters", [1, address]);
+  const { data: proposal, isLoading: proposalLoading } = useContractRead(contract, "proposals", [2]);
+  const { data: voted, isLoading: voterLoading } = useContractRead(contract, "voters", [2, address]);
 
   return (
     <div className={styles.container}>
@@ -29,18 +29,18 @@ const Home: NextPage = () => {
                     <div>
                       <Web3Button
                         contractAddress={contractAddress}
-                        action={(contract) => contract.call("Vote", [1, true])}
-                        isDisabled={voter && voter.voted}
+                        action={(contract) => contract.call("vote", [2, true])}
+                        isDisabled={voted && voted.voted}
                       >Yes</Web3Button>
                       
                       <Web3Button
                         contractAddress={contractAddress}
-                        action={(contract) => contract.call("Vote", [1, false])}
-                        isDisabled={voter && voter.voted}
+                        action={(contract) => contract.call("vote", [2, false])}
+                        isDisabled={voted && voted.voted}
                       >No</Web3Button>
                     </div>
                     <div>
-                      {!voterLoading && voter && voter.voted ? (
+                      {!voterLoading && voted && voted.voted ? (
                         <div>
                           <h3>Results:</h3>
                           <p>Yes: {proposal[1].toNumber()}</p>
