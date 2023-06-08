@@ -7,8 +7,8 @@ const Home: NextPage = () => {
   const contractAddress = "0x26275251a2380bCfa4F32059FbF83f31824FED4e"
 
   const { contract } = useContract(contractAddress)
-  const { data: proposal, isLoading: proposalLoading } = useContractRead(contract, "proposals", [0]);
-  const { data: voter, isLoading: voterLoading } = useContractRead(contract, "voters", [0, address]);
+  const { data: proposal, isLoading: proposalLoading } = useContractRead(contract, "proposals", [1]);
+  const { data: voter, isLoading: voterLoading } = useContractRead(contract, "voters", [1, address]);
 
   return (
     <div className={styles.container}>
@@ -29,13 +29,13 @@ const Home: NextPage = () => {
                     <div>
                       <Web3Button
                         contractAddress={contractAddress}
-                        action={(contract) => contract.call("Vote", [0, true])}
+                        action={(contract) => contract.call("Vote", [1, true])}
                         isDisabled={voter}
                       >Yes</Web3Button>
                       
                       <Web3Button
                         contractAddress={contractAddress}
-                        action={(contract) => contract.call("Vote", [0, false])}
+                        action={(contract) => contract.call("Vote", [1, false])}
                         isDisabled={voter}
                       >No</Web3Button>
                     </div>
@@ -48,7 +48,7 @@ const Home: NextPage = () => {
                         </div>
                       ) : (
                         <div>
-                          <p>You have not voted yet. Results will show after you vote.</p>
+                          <p>まだ投票されていません。結果は投票後に表示されます。</p>
                         </div>
                       )}
                     </div>
